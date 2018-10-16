@@ -6,23 +6,18 @@ import (
 	"github.com/cranburyattic/ml/brain"
 )
 
-func main() {
-
-	// create the perceptron and set the weights
-	p := brain.Perceptron{}
-	p.SetWeights()
-
+func trainTheBrain(p *brain.Perceptron, iterations int) {
 	// create some points to be able to train the brain
-	points := [100]brain.Point{}
+	trainingPoints := [100]brain.Point{}
 	var r1 int
 	var r2 int
 
-	for i := range points {
+	for i := range trainingPoints {
 
 		pt := brain.Point{}
 		n1, n2 := pt.SetValues()
 
-		points[i] = pt
+		trainingPoints[i] = pt
 
 		r1 = r1 + n1
 		r2 = r2 + n2
@@ -31,8 +26,9 @@ func main() {
 	var correct int
 	var wrong int
 
-	for i := 0; i < 30; i++ {
-		for _, pt := range points {
+	// train the brain
+	for i := 0; i < iterations; i++ {
+		for _, pt := range trainingPoints {
 			inputs := []float64{pt.X, pt.Y}
 			p.Train(inputs, pt.Label)
 			guess := p.Guess(inputs)
@@ -43,9 +39,38 @@ func main() {
 			}
 		}
 
-		fmt.Println(r1, r2, correct, wrong)
+		//fmt.Println(r1, r2, correct, wrong)
 
 		correct = 0
 		wrong = 0
 	}
+
+}
+
+func main() {
+
+	// create the perceptron and set the weights
+	p := brain.Perceptron{}
+	p.SetWeights()
+
+	trainTheBrain(&p, 20)
+
+	correct := 0
+	incorrect := 0
+	// test the brain
+	for i := 0; i < 30; i++ {
+
+		pt := brain.Point{}
+		pt.SetValues()
+
+		inputs := []float64{pt.X, pt.Y}
+		guess := p.Guess(inputs)
+		if guess == pt.Label {
+			correct++
+		} else {
+			incorrect++
+		}
+
+	}
+	fmt.Printf("Correct %v : Incorrect %v\n", correct, incorrect)
 }
