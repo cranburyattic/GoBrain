@@ -24,7 +24,7 @@ func trainTheBrain(p *brain.Perceptron, iterations int) {
 	}
 
 	var correct int
-	var wrong int
+	var incorrect int
 
 	// train the brain
 	for i := 0; i < iterations; i++ {
@@ -35,14 +35,14 @@ func trainTheBrain(p *brain.Perceptron, iterations int) {
 			if guess == pt.Label {
 				correct++
 			} else {
-				wrong++
+				incorrect++
 			}
 		}
 
 		//fmt.Println(r1, r2, correct, wrong)
 
 		correct = 0
-		wrong = 0
+		incorrect = 0
 	}
 
 }
