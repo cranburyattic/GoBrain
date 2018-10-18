@@ -1,9 +1,5 @@
 package brain
 
-import (
-	"github.com/cranburyattic/ml/random"
-)
-
 // Point is being tested
 type Point struct {
 	X     float64
@@ -13,10 +9,10 @@ type Point struct {
 
 // SetValues sets random x and y values of the point
 // and adds a label
-func (pt *Point) SetValues() (int, int) {
+func (pt *Point) SetValues(x, y float64) (int, int) {
 
-	pt.X = random.GenerateRamdomFloat64InRange(0, 300)
-	pt.Y = random.GenerateRamdomFloat64InRange(0, 300)
+	pt.X = x
+	pt.Y = y
 
 	if pt.X > pt.Y {
 		pt.Label = 1

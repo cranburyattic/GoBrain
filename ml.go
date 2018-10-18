@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/cranburyattic/ml/brain"
+	"github.com/cranburyattic/ml/random"
 )
 
 func trainTheBrain(p *brain.Perceptron, iterations int) {
@@ -15,7 +16,8 @@ func trainTheBrain(p *brain.Perceptron, iterations int) {
 	for i := range trainingPoints {
 
 		pt := brain.Point{}
-		n1, n2 := pt.SetValues()
+		n1, n2 := pt.SetValues(random.GenerateRamdomFloat64InRange(0, 300),
+			random.GenerateRamdomFloat64InRange(0, 300))
 
 		trainingPoints[i] = pt
 
@@ -61,7 +63,8 @@ func main() {
 	for i := 0; i < 30; i++ {
 
 		pt := brain.Point{}
-		pt.SetValues()
+		pt.SetValues(random.GenerateRamdomFloat64InRange(0, 300),
+			random.GenerateRamdomFloat64InRange(0, 300))
 
 		inputs := []float64{pt.X, pt.Y}
 		guess := p.Guess(inputs)
