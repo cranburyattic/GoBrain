@@ -1,19 +1,25 @@
 package brain
 
-import (
-	"github.com/cranburyattic/ml/random"
-)
-
 // Perceptron is the brain of the system
 type Perceptron struct {
-	weights [2]float64
+	weights []float64
 }
 
-// SetWeights intializes random weights for the inputs
-func (p *Perceptron) SetWeights() {
-	for i := range p.weights {
-		p.weights[i] = random.GenerateRamdomFloat64InRange(-1, 1)
+// SetWeights sets up the starting weights for the Perceptron
+func (p *Perceptron) SetWeights(startingWeight float64) {
+
+	weights := make([]float64, 2)
+
+	for i := range weights {
+		weights[i] = startingWeight
 	}
+	p.weights = weights
+}
+
+// GetWeights returns the weights value array for inspection
+func (p *Perceptron) GetWeights() []float64 {
+
+	return p.weights
 }
 
 // Guess takes an input array containing two point values
@@ -33,6 +39,7 @@ func (p Perceptron) Guess(inputs []float64) int {
 
 // Train the Brain with a known data set
 func (p *Perceptron) Train(inputs []float64, target int) {
+
 	guess := p.Guess(inputs)
 	error := target - guess
 
@@ -44,9 +51,10 @@ func (p *Perceptron) Train(inputs []float64, target int) {
 
 // the activation function
 func sign(n float64) int {
+
 	if n >= 0 {
 		return 1
 	}
-	return -1
 
+	return -1
 }
