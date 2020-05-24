@@ -7,6 +7,10 @@ type Point struct {
 	Label int
 }
 
+func NewPoint() *Point {
+	return &Point{}
+}
+
 // SetValues sets random x and y values of the point
 // and adds a label
 func (pt *Point) SetValues(x, y float64) (int, int) {

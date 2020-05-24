@@ -1,8 +1,14 @@
 package brain
 
+const LEARNING_RATE = 0.1
+
 // Perceptron is the brain of the system
 type Perceptron struct {
 	weights []float64
+}
+
+func NewPerceptron() *Perceptron {
+	return &Perceptron{}
 }
 
 // SetWeights sets up the starting weights for the Perceptron
@@ -23,8 +29,8 @@ func (p *Perceptron) GetWeights() []float64 {
 }
 
 // Guess takes an input array containing two point values
-// and retuns the guess -1 or 1
-func (p Perceptron) Guess(inputs []float64) int {
+// and returns the guess -1 or 1
+func (p *Perceptron) Guess(inputs []float64) int {
 
 	var sum float64
 
@@ -45,7 +51,7 @@ func (p *Perceptron) Train(inputs []float64, target int) {
 
 	// Tune all the weights
 	for i := range p.weights {
-		p.weights[i] += float64(error) * inputs[i] * 0.1
+		p.weights[i] += float64(error) * inputs[i] * LEARNING_RATE
 	}
 }
 
